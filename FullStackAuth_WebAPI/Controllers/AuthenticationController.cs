@@ -45,8 +45,8 @@ namespace FullStackAuth_WebAPI.Controllers
             {
                 Id = user.Id,
                 UserName = user.UserName,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                Email = user.Email,
+                Password = user.Password,
             };
             return StatusCode(201, createdUser);
         }
