@@ -29,39 +29,6 @@ namespace FullStackAuth_WebAPI.Controllers
             _context = context;
         }
 
-        // GET api/<MediaController>/<title>
-        [HttpGet("{title}")]
-        public IActionResult GetMediaInformation(string title)
-        {
-            try
-            {
-                  HttpClient client = new HttpClient();
-                var searchEndPointUrl = "https://api4.thetvdb.com/v4/search?query=";
-                var escapedTitle = Uri.EscapeDataString(title);
-
-                string token = "";
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage response = client.GetAsync(searchEndPointUrl + escapedTitle).Result;
-                response.EnsureSuccessStatusCode();
-                string responseBody = response.Content.ReadAsStringAsync().Result;
-
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var jsonDoc = JsonDocument.Parse(responseBody);
-                var dataElement = jsonDoc.RootElement.GetProperty("data");
-                var results = JsonSerializer.Deserialize<List<MediaToDisplayForSearchDto>>(dataElement.GetRawText(), options);
-
-                return StatusCode(200, results);
-            }
-            catch (HttpRequestException ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-
-
-        }
-
-       
-
 
         // Post api/<MediaController>/5
         [HttpPost, Authorize]
@@ -96,7 +63,7 @@ namespace FullStackAuth_WebAPI.Controllers
 
         //PUT api/<MediaController>/5
         [HttpPut("{id}"), Authorize]
-        public IActionResult UpdateMediaInList(string id, [FromBody] Media data)
+        public IActionResult UpdateMediaInList(int id, [FromBody] Media data)
         {
             try
             {
@@ -151,7 +118,7 @@ namespace FullStackAuth_WebAPI.Controllers
 
         // DELETE api/<MediaController>/5
         [HttpDelete("{id}"), Authorize]
-        public IActionResult DeleteMedia(string id)
+        public IActionResult DeleteMediaInList(int id)
         {
           try {
               //Find the media in list to be deleted

@@ -9,6 +9,7 @@ namespace FullStackAuth_WebAPI.Data
     {
         public DbSet<Media> Media { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Car> Cars { get; set; }
 
         public ApplicationDbContext(DbContextOptions options)
     : base(options)

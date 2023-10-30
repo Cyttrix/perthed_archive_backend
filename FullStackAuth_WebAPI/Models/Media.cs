@@ -9,13 +9,13 @@ namespace FullStackAuth_WebAPI.Models
     public class Media
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public string MediaTitle { get; set; }
         [Required]
         public string CoverImg { get; set; }
         [Required]
-        public List<string> Genre { get; set; }
+        public string Genre { get; set; }
         [Required]
         public string Runtime { get; set; }
         [Required]
