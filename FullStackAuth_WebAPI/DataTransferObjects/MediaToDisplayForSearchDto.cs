@@ -3,15 +3,13 @@
 namespace FullStackAuth_WebAPI.DataTransferObjects
    
 {
-    public class MediaToDisplayDto
+    public class MediaToDisplayForSearchDto
     {
         public string id {  get; set; }
 
         public string name { get; set; }
 
         public string thumbnail { get; set; }
-
-        public string overview { get; set; }
 
         public string[] genres {  get; set; }
 

@@ -9,7 +9,7 @@ namespace FullStackAuth_WebAPI.Models
     public class Media
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required]
         public string MediaTitle { get; set; }
         [Required]
@@ -37,7 +37,7 @@ namespace FullStackAuth_WebAPI.Models
         [AllowNull]
         public int Score { get; set; }
         [AllowNull]
-        public int Note { get; set; }
+        public string Note { get; set; }
         [ForeignKey("User")]
         public string UserId {  get; set; }
         public User User { get; set; }
