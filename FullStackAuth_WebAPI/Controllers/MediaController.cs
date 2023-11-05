@@ -30,13 +30,33 @@ namespace FullStackAuth_WebAPI.Controllers
         }
 
 
-        // Post api/<MediaController>/5
-        [HttpPost, Authorize]
+        //TODO: Build Get All Media endpoint
+        //GET: api/media
+        [HttpGet]
+        public IActionResult GetAllMedia() 
+        {
+            try
+            {
+                var media = _context.Media.ToList();
+
+                return StatusCode(200, media);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // Post api/<MediaController>
+        //[HttpPost, Authorize]
+        //401 unauthorized?
+        [HttpPost]
         public IActionResult PostMediaToList([FromBody] Media data)
         {
             try
             {
-                string userId = User.FindFirstValue("id");
+                //string userId = User.FindFirstValue("id");
+                string userId = "24d44028-23c7-4ec5-be54-c91fb083902f";
 
                 if (string.IsNullOrEmpty(userId))
                 {
@@ -44,6 +64,12 @@ namespace FullStackAuth_WebAPI.Controllers
                 }
 
                 data.UserId = userId;
+                data.Episodes = 1;
+                data.Progress = 0;
+                
+                
+
+                
 
                 _context.Media.Add(data);
                 if (!ModelState.IsValid)
@@ -62,7 +88,7 @@ namespace FullStackAuth_WebAPI.Controllers
         }
 
         //PUT api/<MediaController>/5
-        [HttpPut("{id}"), Authorize]
+        [HttpPut("{id}")]
         public IActionResult UpdateMediaInList(int id, [FromBody] Media data)
         {
             try
@@ -77,21 +103,25 @@ namespace FullStackAuth_WebAPI.Controllers
                 }
 
                 //Check if the authenticated user is the user of the review
-                var userId = User.FindFirstValue("id");
-                if (string.IsNullOrEmpty(userId) || media.UserId == userId)
+                //var userId = User.FindFirstValue("id");
+                string userId = "24d44028-23c7-4ec5-be54-c91fb083902f";
+                if (string.IsNullOrEmpty(userId) || media.UserId != userId)
                 {
                     //Return a 401 Unauthroized error if the authenticated user is not the user of the media in the list
                     return Unauthorized();
                 }
-
+                {
+                    
+}
 
                 //Update the media properties
-                media.UserId = userId;
-                media.User = _context.Users.Find(userId);
+                media.MediaTitle = data.MediaTitle;
+                media.TypeOfMedia = data.TypeOfMedia;
+                media.Episodes = data.Episodes;
                 media.Status = data.Status;
-                media.Score = data.Score;
                 media.Progress = data.Progress;
                 media.DateCompleted = data.DateCompleted;
+                media.Score = data.Score;
                 media.Note = data.Note;
 
                 
@@ -117,7 +147,7 @@ namespace FullStackAuth_WebAPI.Controllers
 
 
         // DELETE api/<MediaController>/5
-        [HttpDelete("{id}"), Authorize]
+        [HttpDelete("{id}")]
         public IActionResult DeleteMediaInList(int id)
         {
           try {
@@ -129,7 +159,8 @@ namespace FullStackAuth_WebAPI.Controllers
                 }
 
                 //Check if the authenticated user is the user of the media
-                var userId = User.FindFirstValue("id");
+                //var userId = User.FindFirstValue("id");
+                string userId = "24d44028-23c7-4ec5-be54-c91fb083902f";
                 if (string.IsNullOrEmpty(userId) || media.UserId != userId)
                 {
                     //Return a 401 Unauthorized error if the authenticated user is not the user of the media
