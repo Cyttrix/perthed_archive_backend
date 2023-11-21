@@ -33,7 +33,7 @@ namespace FullStackAuth_WebAPI.Controllers
         //TODO: Build Get All Media endpoint
         //GET: api/media
         [HttpGet]
-        public IActionResult GetAllMedia() 
+        public IActionResult GetAllMedia()
         {
             try
             {
@@ -49,14 +49,15 @@ namespace FullStackAuth_WebAPI.Controllers
 
         // Post api/<MediaController>
         //[HttpPost, Authorize]
-        //401 unauthorized?
+        //401/400 unauthorized?
         [HttpPost]
         public IActionResult PostMediaToList([FromBody] Media data)
         {
             try
             {
                 //string userId = User.FindFirstValue("id");
-                string userId = "24d44028-23c7-4ec5-be54-c91fb083902f";
+                // Retrieve the authenticated user's ID from the JWT token
+                string userId = User.FindFirstValue("id");
 
                 if (string.IsNullOrEmpty(userId))
                 {
@@ -66,10 +67,10 @@ namespace FullStackAuth_WebAPI.Controllers
                 data.UserId = userId;
                 data.Episodes = 1;
                 data.Progress = 0;
-                
-                
 
-                
+
+
+
 
                 _context.Media.Add(data);
                 if (!ModelState.IsValid)
@@ -111,8 +112,8 @@ namespace FullStackAuth_WebAPI.Controllers
                     return Unauthorized();
                 }
                 {
-                    
-}
+
+                }
 
                 //Update the media properties
                 media.MediaTitle = data.MediaTitle;
@@ -124,7 +125,7 @@ namespace FullStackAuth_WebAPI.Controllers
                 media.Score = data.Score;
                 media.Note = data.Note;
 
-                
+
 
 
                 if (!ModelState.IsValid)

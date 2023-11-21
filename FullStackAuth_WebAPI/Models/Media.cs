@@ -17,9 +17,8 @@ namespace FullStackAuth_WebAPI.Models
         //public string CoverImg { get; set; }
         //[Required, DefaultValue("")]
         //public string Genre { get; set; }
-        //[Required, DefaultValue("")]
-        
-        //public string Runtime { get; set; }
+        [AllowNull]
+        public int Runtime { get; set; }
         //[Required, DefaultValue("")]
         //blic string Synopsis { get; set; }
         [Required]

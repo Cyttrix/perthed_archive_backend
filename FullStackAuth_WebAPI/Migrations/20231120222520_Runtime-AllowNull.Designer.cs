@@ -3,6 +3,7 @@ using System;
 using FullStackAuth_WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FullStackAuth_WebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231120222520_Runtime-AllowNull")]
+    partial class RuntimeAllowNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,8 +71,8 @@ namespace FullStackAuth_WebAPI.Migrations
                     b.Property<int>("Progress")
                         .HasColumnType("int");
 
-                    b.Property<int>("Runtime")
-                        .HasColumnType("int");
+                    b.Property<string>("Runtime")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");
@@ -224,13 +227,13 @@ namespace FullStackAuth_WebAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3f5f3572-edb2-4144-bf4e-3b4dc6658857",
+                            Id = "d441c009-636e-47f5-8a8c-7e7016e8031b",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "31cf52ca-d6f5-41bb-97f7-6d8535d72785",
+                            Id = "8f86b251-09e9-4741-a20a-459736ead7ab",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

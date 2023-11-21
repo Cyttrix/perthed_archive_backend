@@ -21,7 +21,7 @@ namespace FullStackAuth_WebAPI.Controllers
         }
 
         //GET: api/posts
-        [HttpGet, Authorize]
+        [HttpGet]
         public IActionResult GetAllPosts()
         {
             try
@@ -37,12 +37,12 @@ namespace FullStackAuth_WebAPI.Controllers
         }
 
         // POST api/<PostController>
-        [HttpPost, Authorize]
+        [HttpPost]
         public IActionResult CreatePost([FromBody] Post data)
         {
             try
             {
-                string userId = User.FindFirstValue("id");
+                string userId = data.UserId;
 
                 if (string.IsNullOrEmpty(userId))
                 {
@@ -50,6 +50,9 @@ namespace FullStackAuth_WebAPI.Controllers
                 }
 
                 data.UserId = userId;
+
+                
+
 
                 //Add the post to the database and save changes
                 _context.Posts.Add(data);
@@ -69,7 +72,7 @@ namespace FullStackAuth_WebAPI.Controllers
 
 
         // DELETE api/<PostController>/5
-        [HttpDelete("{id}"), Authorize]
+        [HttpDelete("{id}")]
         public IActionResult DeletePost(int id)
         {
             try
